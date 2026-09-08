@@ -21,8 +21,12 @@ describe('askQuestion', () => {
   });
 
   it('debe lanzar error si la consulta está vacía', async () => {
-    await expect(askQuestion('')).rejects.toThrow('La consulta no puede estar vacía');
-    await expect(askQuestion('   ')).rejects.toThrow('La consulta no puede estar vacía');
+    await expect(askQuestion('')).rejects.toThrow(
+      'La consulta no puede estar vacía',
+    );
+    await expect(askQuestion('   ')).rejects.toThrow(
+      'La consulta no puede estar vacía',
+    );
   });
 
   it('debe lanzar error si no hay documentos embebidos', async () => {
@@ -30,7 +34,7 @@ describe('askQuestion', () => {
     mockSearch.mockResolvedValue([]);
 
     await expect(askQuestion('¿Qué es RAG?')).rejects.toThrow(
-      'No hay documentos embebidos. Ejecuta la opción 1 primero.'
+      'No hay documentos embebidos. Ejecuta la opción 1 primero.',
     );
   });
 
@@ -69,7 +73,9 @@ describe('askQuestion', () => {
     const mockGenerate = vi.mocked(generateAnswer);
 
     // Crear texto con más de 600 palabras
-    const longText = Array.from({ length: 700 }, (_, i) => `palabra${i}`).join(' ');
+    const longText = Array.from({ length: 700 }, (_, i) => `palabra${i}`).join(
+      ' ',
+    );
 
     const results: SearchResult[] = [
       {

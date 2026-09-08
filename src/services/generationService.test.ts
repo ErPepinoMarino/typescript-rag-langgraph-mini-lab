@@ -73,7 +73,7 @@ describe('generateAnswer', () => {
     } as never);
 
     await expect(generateAnswer('Contexto', 'Pregunta')).rejects.toThrow(
-      'OpenAI no generó una respuesta.'
+      'OpenAI no generó una respuesta.',
     );
   });
 
@@ -84,7 +84,7 @@ describe('generateAnswer', () => {
     } as never);
 
     await expect(generateAnswer('Contexto', 'Pregunta')).rejects.toThrow(
-      'OpenAI no generó una respuesta.'
+      'OpenAI no generó una respuesta.',
     );
   });
 });

@@ -17,4 +17,3 @@ export interface SearchResult {
   document: EmbeddedDocument;
   score: number;
 }
-

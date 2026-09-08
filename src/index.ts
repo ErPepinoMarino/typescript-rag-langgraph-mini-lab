@@ -4,6 +4,7 @@ import { embedDocuments } from './services/embeddingService.js';
 import { loadEmbeddedDocuments } from './services/storage.js';
 import { search } from './services/retrievalService.js';
 import { askQuestion } from './services/ragService.js';
+import { graph } from './graph/graph.js';
 
 const reset = '\x1b[0m';
 const bold = '\x1b[1m';
@@ -35,7 +36,8 @@ function showMenu(): void {
   console.log(`${cyan}2.${reset} Auditar documentos embebidos`);
   console.log(`${cyan}3.${reset} Probar RAG (buscar similitud)`);
   console.log(`${cyan}4.${reset} Usar RAG (preguntar al LLM)`);
-  console.log(`${cyan}5.${reset} Salir\n`);
+  console.log(`${cyan}5.${reset} Testear LangGraph simple`);
+  console.log(`${cyan}6.${reset} Salir\n`);
 }
 
 async function handleEmbedDocuments(): Promise<void> {
@@ -159,8 +161,32 @@ async function handleAskQuestion(): Promise<void> {
   }
 }
 
+async function handleLangGraph(): Promise<void> {
+  console.log(`\n${bold}${yellow}🔗 Testear LangGraph simple${reset}\n`);
+
+  try {
+    const query = await promptUser('Escribe tu pregunta: ');
+
+    if (query.length > 500) {
+      console.log(
+        `\n${red}❌ Error: La pregunta no puede exceder 500 caracteres.${reset}`,
+      );
+      console.log(`   Caracteres actuales: ${query.length}\n`);
+      return;
+    }
+
+    const finalState = await graph.invoke({ query });
+
+    console.log(`\n${bold}${green}💡 Respuesta (via LangGraph):${reset}\n`);
+    console.log(`   ${finalState.answer}\n`);
+  } catch (error) {
+    console.log(`\n${red}❌ Error al procesar la pregunta:${reset}`);
+    console.log(`   ${error instanceof Error ? error.message : error}`);
+  }
+}
+
 function promptUser(
-  prompt: string = 'Elige una opción (1/2/3/4/5): ',
+  prompt: string = 'Elige una opción (1/2/3/4/5/6): ',
 ): Promise<string> {
   const rl = readline.createInterface({
     input: process.stdin,
@@ -197,11 +223,14 @@ async function main(): Promise<void> {
         await handleAskQuestion();
         break;
       case '5':
+        await handleLangGraph();
+        break;
+      case '6':
         console.log(`\n${bold}${green}¡Hasta luego! 👋${reset}\n`);
         running = false;
         break;
       default:
-        console.log(`\n${red}Opción no válida. Usa 1, 2, 3, 4 o 5.${reset}`);
+        console.log(`\n${red}Opción no válida. Usa 1, 2, 3, 4, 5 o 6.${reset}`);
     }
   }
 }

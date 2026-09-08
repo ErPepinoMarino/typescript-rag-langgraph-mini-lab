@@ -9,7 +9,11 @@ vi.mock('fs/promises', () => ({
 }));
 
 import { readFile, writeFile, mkdir } from 'fs/promises';
-import { saveEmbeddedDocuments, loadEmbeddedDocuments, getEmbeddedDocIds } from './storage.js';
+import {
+  saveEmbeddedDocuments,
+  loadEmbeddedDocuments,
+  getEmbeddedDocIds,
+} from './storage.js';
 
 describe('storage', () => {
   beforeEach(() => {
@@ -24,10 +28,14 @@ describe('storage', () => {
       const mockWriteFile = vi.mocked(writeFile);
       mockWriteFile.mockResolvedValue(undefined);
 
-      const docs: EmbeddedDocument[] = [{ id: 'test', text: 'hola', embedding: [0.1] }];
+      const docs: EmbeddedDocument[] = [
+        { id: 'test', text: 'hola', embedding: [0.1] },
+      ];
       await saveEmbeddedDocuments(docs);
 
-      expect(mockMkdir).toHaveBeenCalledWith(expect.stringContaining('data'), { recursive: true });
+      expect(mockMkdir).toHaveBeenCalledWith(expect.stringContaining('data'), {
+        recursive: true,
+      });
       expect(mockWriteFile).toHaveBeenCalledOnce();
     });
 
@@ -69,7 +77,9 @@ describe('storage', () => {
       const mockReadFile = vi.mocked(readFile);
       mockReadFile.mockResolvedValue('json corrupto');
 
-      await expect(loadEmbeddedDocuments()).rejects.toThrow('Error al cargar documentos embebidos');
+      await expect(loadEmbeddedDocuments()).rejects.toThrow(
+        'Error al cargar documentos embebidos',
+      );
     });
 
     it('debe cargar documentos guardados previamente', async () => {

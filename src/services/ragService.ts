@@ -32,7 +32,9 @@ export async function askQuestion(query: string): Promise<string> {
 
   // Si no hay documentos embebidos, no podemos responder
   if (results.length === 0) {
-    throw new Error('No hay documentos embebidos. Ejecuta la opción 1 primero.');
+    throw new Error(
+      'No hay documentos embebidos. Ejecuta la opción 1 primero.',
+    );
   }
 
   // Tomar solo el documento más similar (top-1)

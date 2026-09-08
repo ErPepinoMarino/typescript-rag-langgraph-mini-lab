@@ -19,7 +19,11 @@ vi.mock('./storage.js', () => ({
 }));
 
 import openai from '../lib/openai.js';
-import { saveEmbeddedDocuments, loadEmbeddedDocuments, getEmbeddedDocIds } from './storage.js';
+import {
+  saveEmbeddedDocuments,
+  loadEmbeddedDocuments,
+  getEmbeddedDocIds,
+} from './storage.js';
 
 describe('embedDocuments', () => {
   beforeEach(() => {

@@ -6,11 +6,22 @@ import prettierConfig from 'eslint-config-prettier';
 
 export default defineConfig([
   {
+    ignores: ['dist/**'],
+  },
+  {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
     plugins: { js },
     extends: ['js/recommended'],
     languageOptions: { globals: globals.node },
   },
   tseslint.configs.recommended,
+  {
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
+    },
+  },
   prettierConfig,
 ]);

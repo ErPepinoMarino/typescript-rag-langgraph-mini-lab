@@ -21,8 +21,12 @@ describe('search', () => {
   });
 
   it('debe lanzar error si la consulta está vacía', async () => {
-    await expect(search('')).rejects.toThrow('La consulta no puede estar vacía');
-    await expect(search('   ')).rejects.toThrow('La consulta no puede estar vacía');
+    await expect(search('')).rejects.toThrow(
+      'La consulta no puede estar vacía',
+    );
+    await expect(search('   ')).rejects.toThrow(
+      'La consulta no puede estar vacía',
+    );
   });
 
   it('debe retornar resultados ordenados por similitud', async () => {
