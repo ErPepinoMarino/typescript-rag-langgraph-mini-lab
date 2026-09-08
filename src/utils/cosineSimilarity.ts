@@ -1,6 +1,6 @@
-/**
- * Calcula el producto punto (dot product) entre dos vectores.
- * Pura matemática, gracias agente.
+/*
+  Calcula el producto punto (dot product) entre dos vectores.
+  Pura matemática, gracias agente.
  */
 function dotProduct(a: number[], b: number[]): number {
   let sum = 0;
@@ -15,7 +15,7 @@ function dotProduct(a: number[], b: number[]): number {
 }
 
 /*
- * Calcula la norma (magnitud) de un vector.
+  Calcula la norma (magnitud) de un vector.
  */
 function norm(v: number[]): number {
   let sumOfSquares = 0;
@@ -28,10 +28,10 @@ function norm(v: number[]): number {
   return Math.sqrt(sumOfSquares);
 }
 
-/**
- * Calcula la similitud del coseno entre dos vectores (embeddings).
- * Aplicammos ya la formula.
- * La fórmula es: dotProduct(a, b) / (||a|| × ||b||)
+/*
+  Calcula la similitud del coseno entre dos vectores (embeddings).
+  Aplicammos ya la formula.
+  La fórmula es: dotProduct(a, b) / (||a|| × ||b||)
  */
 export function cosineSimilarity(a: number[], b: number[]): number {
   if (a.length !== b.length) {
